@@ -1,0 +1,54 @@
+hive> select count(*) from itv001157_demo.orders_no_buckets where order_id = 68848;
+Query ID = itv001157_20210929103109_cb33be2f-0cf8-41fe-b29c-7f06889d94ac
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1624709891350_37605, Tracking URL = http://m02.itversity.com:19088/proxy/application_1624709891350_37605/
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1624709891350_37605
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-09-29 10:31:22,822 Stage-1 map = 0%,  reduce = 0%
+2021-09-29 10:31:26,994 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.17 sec
+2021-09-29 10:31:31,162 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.73 sec
+MapReduce Total cumulative CPU time: 3 seconds 730 msec
+Ended Job = job_1624709891350_37605
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.73 sec   HDFS Read: 3014230 HDFS Write: 101 SUCCESS
+Total MapReduce CPU Time Spent: 3 seconds 730 msec
+OK
+1
+Time taken: 22.611 seconds, Fetched: 1 row(s)
+hive> 
+---------------------------------
+
+hive> select count(*) from itv001157_demo.orders_w_buckets where order_id = 68848;
+Query ID = itv001157_20210929102902_9afd73e9-e9fb-4726-a132-c82a18b9962c
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1624709891350_37604, Tracking URL = http://m02.itversity.com:19088/proxy/application_1624709891350_37604/
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1624709891350_37604
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-09-29 10:29:11,744 Stage-1 map = 0%,  reduce = 0%
+2021-09-29 10:29:15,952 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.15 sec
+2021-09-29 10:29:19,095 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.72 sec
+MapReduce Total cumulative CPU time: 3 seconds 720 msec
+Ended Job = job_1624709891350_37604
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.72 sec   HDFS Read: 2257153 HDFS Write: 101 SUCCESS
+Total MapReduce CPU Time Spent: 3 seconds 720 msec
+OK
+1
+Time taken: 17.545 seconds, Fetched: 1 row(s)
+

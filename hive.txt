@@ -1,0 +1,51 @@
+Hive
+=====
+
+TABLE without bucketing
+--------------------------
+DROP TABLE IF EXISTS students_wo_buckets;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS students_wo_buckets (id int, first_name string, last_name string, email string, gender varchar(20), ip_address varchar(15))
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+load data local inpath '/home/itv001157/data/MOCK_NEW.txt' into table students_wo_buckets;
+
+alter table students_wo_buckets set fileformat textfile;
+
+
+TABLE with bucketing
+------------------------
+DROP TABLE IF EXISTS students_w_buckets;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS students_w_buckets (id int, first_name string, last_name string, email string, gender varchar(20), ip_address varchar(15))
+CLUSTERED BY (id) INTO 4 BUCKETS
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+insert into table students_w_buckets SELECT * FROM students_wo_buckets;
+
+without bucketing
+------------------
+
+CREATE EXTERNAL TABLE IF NOT EXISTS orders_no_buckets (order_id int, order_date string, order_customer_id int, order_status string)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+load data local inpath '/home/itv001157/data/orders.csv' into table orders_no_buckets;
+
+with bucketing
+--------------
+DROP TABLE IF EXISTS orders_w_buckets;
+CREATE EXTERNAL TABLE IF NOT EXISTS orders_w_buckets (order_id int, order_date date, order_customer_id int, order_status string)
+CLUSTERED BY (order_id) INTO 4 BUCKETS
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+insert overwrite table orders_w_buckets
+SELECT order_id, date_format(order_date, 'yyyy-MM-dd'), order_customer_id, order_status FROM orders_no_buckets;
+
