@@ -1,0 +1,23 @@
+Collect List
+============
+hive> select first_name, collect_list(last_name) from students_wo_buckets group by first_name having first_name='Rees';
+OK
+Rees    ["Amyes","Amyes","Amyes","Amyes","Amyes","Amyes","Amyes","Amyes","Amyes","Amyes"]
+
+Collect Set
+===========
+hive> select first_name, collect_set(last_name) from students_wo_buckets group by first_name having first_name='Rees';
+OK
+Rees    ["Amyes"]
+
+hive> select first_name, collect_set(last_name), collect_set(customer_id) from students_wo_buckets group by first_name having first_name='Smith';
+OK
+Smith   ["Golland","McCourt"]
+
+Find First Value based on the aggregate column
+===============================================
+select first_name, collect_set(last_name)[0] from students_wo_buckets group by first_name having first_name='Smith';
+
+First Value
+============
+hive> select first_name, first_value(last_name) over (partition by first_name order by id) from students_wo_buckets;
