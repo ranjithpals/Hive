@@ -14,10 +14,18 @@ hive> select first_name, collect_set(last_name), collect_set(customer_id) from s
 OK
 Smith   ["Golland","McCourt"]
 
-Find First Value based on the aggregate column
+Find First Value of the aggregate column
 ===============================================
+- Using the collect_set function
+--------------------------------
 select first_name, collect_set(last_name)[0] from students_wo_buckets group by first_name having first_name='Smith';
+OK
+Smith   Golland
+
+- Using the row_number function
+-------------------------------
+select first_name, last_name, row_number() over (partition by first_name order by id) as from students_wo_buckets;
 
 First Value
 ============
-hive> select first_name, first_value(last_name) over (partition by first_name order by id) from students_wo_buckets;
+hive> select first_name, last_name, first_value(last_name) over (partition by first_name order by id) from students_wo_buckets where first_name='Smith';
